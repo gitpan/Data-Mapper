@@ -3,20 +3,32 @@ NAME
     PofEAA
 
 SYNOPSIS
-      use Data::Mapper;
+      # Your mapper class
+      package My::Mapper;
+      use parent qw(Data::Mapper);
+
+      # Your data class related to `user` table
+      package My::Mapper::Data::User;
+      use parent qw(Data::Mapper::Data);
+
+      # Then, use them
+      package main;
       use Data::Mapper::Adapter::DBI;
 
       my $dbh     = DBI->connect($dsn, $username, $password, ...);
       my $adapter = Data::Mapper::Adapter::DBI->new({ driver => $dbh });
-      my $mapper  = Data::Mapper->new({ adapter => $adapter });
+      my $mapper  = My::Mapper->new({ adapter => $adapter });
 
       # Create
       my $data = $mapper->create(user => { name => 'kentaro', age => 34 });
+      #=> is a My::Mapper::Data::User object
 
       # Retrieve just one item
       $data = $mapper->find(user => { name => 'kentaro' });
+      #=> is a My::Mapper::Data::User object
+
       $data->param('name'); #=> kentaro
-      $data->param('age');  #=> kentaro
+      $data->param('age');  #=> 34
 
       # Search with some conditions
       $result = $mapper->search(user => { age => 34 }, { order_by => 'id DESC' });
@@ -156,6 +168,10 @@ SEE ALSO
 
         An existing Perl implementation of the pattern above. You might want
         to consult it if you want much more ORM-ish features.
+
+    *   DBI
+
+    *   SQL::Maker
 
 LICENSE
     Copyright (C) Kentaro Kuribayashi
