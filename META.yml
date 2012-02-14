@@ -9,7 +9,7 @@ build_requires:
 configure_requires:
   Module::Build: 0.38
 dynamic_config: 0
-generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.112621'
+generated_by: 'Module::Build version 0.38, CPAN::Meta::Converter version 2.113640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -21,7 +21,7 @@ no_index:
 provides:
   Data::Mapper:
     file: lib/Data/Mapper.pm
-    version: 0.03
+    version: 0.04
   Data::Mapper::Adapter:
     file: lib/Data/Mapper/Adapter.pm
     version: 0
@@ -45,4 +45,4 @@ requires:
   perl: 5.008001
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.03
+version: 0.04

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use parent qw(Data::Mapper::Class);
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Carp         ();
 use Scalar::Util ();
@@ -160,6 +160,14 @@ PofEAA
 
   my $dbh     = DBI->connect($dsn, $username, $password, ...);
   my $adapter = Data::Mapper::Adapter::DBI->new({ driver => $dbh });
+
+  # You can pass coderef as a driver factory, instead:
+
+  my $handler = DBIx::Handler->new(...);
+  my $adapter = Data::Mapper::Adapter::DBI->new({
+      driver => sub { $handler->dbh }
+  });
+
   my $mapper  = My::Mapper->new({ adapter => $adapter });
 
   # Create
@@ -215,8 +223,8 @@ I<Mapper> makes relations between data from a datasource, which is
 typically a database, to Perl's objects, and vice versa, while keeping
 them independent each other, and the mapper itself.
 
-You can use Data::Mapper directly or make your own mapper by
-inheriting it.
+You can use Data::Mapper via your own mapper subclass by inheriting
+it.
 
 I<Mapper> provides the methods below:
 
@@ -316,6 +324,16 @@ I<Data::Mapper::Data> object.
 =head1 AUTHOR
 
 Kentaro Kuribayashi E<lt>kentarok@gmail.comE<gt>
+
+=head1 REPOSITORY
+
+=over 4
+
+=item * GitHub
+
+L<https://github.com/kentaro/data-mapper>
+
+=back
 
 =head1 SEE ALSO
 

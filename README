@@ -17,6 +17,14 @@ SYNOPSIS
 
       my $dbh     = DBI->connect($dsn, $username, $password, ...);
       my $adapter = Data::Mapper::Adapter::DBI->new({ driver => $dbh });
+
+      # You can pass coderef as a driver factory, instead:
+
+      my $handler = DBIx::Handler->new(...);
+      my $adapter = Data::Mapper::Adapter::DBI->new({
+          driver => sub { $handler->dbh }
+      });
+
       my $mapper  = My::Mapper->new({ adapter => $adapter });
 
       # Create
@@ -68,8 +76,7 @@ Data::Mapper Convention
     typically a database, to Perl's objects, and vice versa, while keeping
     them independent each other, and the mapper itself.
 
-    You can use Data::Mapper directly or make your own mapper by inheriting
-    it.
+    You can use Data::Mapper via your own mapper subclass by inheriting it.
 
     *Mapper* provides the methods below:
 
@@ -158,6 +165,11 @@ Data::Mapper Convention
 
 AUTHOR
     Kentaro Kuribayashi <kentarok@gmail.com>
+
+REPOSITORY
+    *   GitHub
+
+        <https://github.com/kentaro/data-mapper>
 
 SEE ALSO
     *   Data Mapper Pattern

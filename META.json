@@ -4,7 +4,7 @@
       "Kentaro Kuribayashi E<lt>kentarok@gmail.comE<gt>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112621",
+   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.113640",
    "license" : [
       "perl_5"
    ],
@@ -44,7 +44,7 @@
    "provides" : {
       "Data::Mapper" : {
          "file" : "lib/Data/Mapper.pm",
-         "version" : "0.03"
+         "version" : "0.04"
       },
       "Data::Mapper::Adapter" : {
          "file" : "lib/Data/Mapper/Adapter.pm",
@@ -73,5 +73,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.03"
+   "version" : "0.04"
 }
