@@ -44,7 +44,7 @@
    "provides" : {
       "Data::Mapper" : {
          "file" : "lib/Data/Mapper.pm",
-         "version" : "0.04"
+         "version" : "0.05"
       },
       "Data::Mapper::Adapter" : {
          "file" : "lib/Data/Mapper/Adapter.pm",
@@ -73,5 +73,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
