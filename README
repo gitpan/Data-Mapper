@@ -106,8 +106,8 @@ Data::Mapper Convention
 
   Adapter
     *Adapter* does CRUD operations against a datasource (database,
-    memcached, etc.). It must implement some methods according to the
-    convention.
+    memcached, external API, etc.). It must implement some methods according
+    to the convention.
 
     *Adapter* must implements the methods below:
 
@@ -136,9 +136,10 @@ Data::Mapper Convention
 
         Deletes the data specified by "\%conditions" from a datasource.
 
-    The return value of "create()", "find()", "search()" is either a HashRef
-    or an object which has "as_serializable()" method to return its contents
-    as a HashRef.
+    The return value of "create()", "find()", "search()" must be either a
+    plain HashRef or a Hash-based object. If the object has
+    "as_serializable()", it'll be called before mapping to extract data as a
+    HashRef.
 
     You can adapt any data-retrieving module to Data::Model convention if
     only you implement the methods described above.
@@ -146,13 +147,20 @@ Data::Mapper Convention
   Data
     *Data* represents a data model where you can define some business logic.
     You must notice that *Data* layer has no idea about what *Mapper* and
-    *Adapter* are. It just hold the data passed by *Mapper*
+    *Adapter* are. It just holds the data passed by *Mapper*
 
-    *Mapper* returns some instance whose class inherits *Data::Mapper::Data*
-    object.
+    *Data* can be either *Data::Mapper::Data*-based object or your own POPO.
 
+      # Data::Mapper::Data-based class
       package My::Mapper::Data::User;
       use parent qw(Data::Mapper::Data);
+
+      # Or, Hash-based POPO
+      package My::Mapper::Data::User;
+      sub new {
+          my ($class, %args) = @_;
+          bless \%args, $class;
+      }
 
       package My::Mapper;
       use parent qw(Data::Mapper);
@@ -162,6 +170,10 @@ Data::Mapper Convention
 
       my $mapper = My::Mapper->new(...);
       $mapper->find(user => ...) #=> Now returns data as a My::Mapper::Data::User
+
+    What data class will be used is determined by "Data::Mapper#data_class"
+    method. In default, data class will be "Your::Mapper::Data::$table" as
+    shown above. You can customize the behaviour by overriding the method.
 
 AUTHOR
     Kentaro Kuribayashi <kentarok@gmail.com>
